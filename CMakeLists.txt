@@ -79,3 +79,22 @@ if(MSVC_VERSION GREATER_EQUAL 1936 AND MSVC_IDE) # 17.6+
 </Project>
 ]==] @ONLY)
 endif()
+
+# #######################################################################################################################
+# # Automatic deployment
+# #######################################################################################################################
+
+# Automatic deployment to CommunityShaders output directory.
+if(AUTO_PLUGIN_DEPLOYMENT)
+	foreach(DEPLOY_TARGET $ENV{CommunityShadersOutputDir})
+		message("Copying AIO to ${DEPLOY_TARGET}")
+		add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> "${DEPLOY_TARGET}/SKSE/Plugins/"
+			COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_PDB_FILE:${PROJECT_NAME}> "${DEPLOY_TARGET}/SKSE/Plugins/"
+		)
+	endforeach()
+
+	if(NOT DEFINED ENV{CommunityShadersOutputDir})
+		message("When using AUTO_PLUGIN_DEPLOYMENT option, you need to set environment variable 'CommunityShadersOutputDir'")
+	endif()
+endif()
