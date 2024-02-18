@@ -34,7 +34,7 @@ Open terminal (e.g., PowerShell) and run the following commands:
 
 ```
 git clone https://github.com/ponzipyramid/CommonLibSSE-NG-Template.git --recursive
-cd skyrim-community-shaders
+cd CommonLibSSE-NG-Template
 .\BuildRelease.bat
 ```
 
