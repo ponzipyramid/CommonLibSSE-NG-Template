@@ -1,8 +1,6 @@
-# Skyrim Community Shaders
+# CommonLibSSE-NG Plugin Template
 
-SKSE core plugin for community-driven advanced graphics modifications.
-
-[Nexus](https://www.nexusmods.com/skyrimspecialedition/mods/86492)
+Template for building SKSE plugins using the NG branch of CommonLibVR.  
 
 ## Requirements
 
@@ -35,7 +33,7 @@ SKSE core plugin for community-driven advanced graphics modifications.
 Open terminal (e.g., PowerShell) and run the following commands:
 
 ```
-git clone https://github.com/doodlum/skyrim-community-shaders.git --recursive
+git clone https://github.com/ponzipyramid/CommonLibSSE-NG-Template.git --recursive
 cd skyrim-community-shaders
 .\BuildRelease.bat
 ```
@@ -46,30 +44,8 @@ If you want an example CMakeUserPreset to start off with you can copy the `CMake
 * This option is default `"OFF"`
 * Make sure `"AUTO_PLUGIN_DEPLOYMENT"` is set to `"ON"` in `CMakeUserPresets.json`
 * Change the `"SamplePluginOutputDir"` value to match your desired outputs, if you want multiple folders you can separate them by `;` is shown in the template example
-#### AIO_ZIP_TO_DIST
-* This option is default `"OFF"`
-* Make sure `"AIO_ZIP_TO_DIST"` is set to `"ON"` in `CMakeUserPresets.json`
-* This will create a `SamplePlugin_AIO.7z` archive in /dist containing all features and base mod
-#### ZIP_TO_DIST
-* This option is default `"ON"`
-* Make sure `"ZIP_TO_DIST"` is set to `"ON"` in `CMakeUserPresets.json`
-* This will create a zip for each feature and one for the base Community shaders in /dist containing
 
 When using custom preset you can call BuildRelease.bat with an parameter to specify which preset to configure eg:
 `.\BuildRelease.bat ALL-WITH-AUTO-DEPLOYMENT`
 
 When switching between different presets you might need to remove the build folder
-
-## License
-
-### Default
-
-[GPL-3.0-or-later](COPYING) WITH [Modding Exception AND GPL-3.0 Linking Exception (with Corresponding Source)](EXCEPTIONS.md).  
-Specifically, the Modded Code is Skyrim (and its variants) and Modding Libraries include [SKSE](https://skse.silverlock.org/) and Commonlib (and variants).
-
-### Shaders
-
-See LICENSE within each directory; if none, it's [Default](#default)
-
-- [Features Shaders](features)
-- [Package Shaders](package/Shaders/)

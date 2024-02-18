@@ -91,40 +91,6 @@ namespace util
 }
 
 #include "Plugin.h"
-#include <wrl/client.h>
-#include <wrl/event.h>
-
-#include <DirectXColors.h>
-#include <DirectXMath.h>
-
-namespace DX
-{
-	// Helper class for COM exceptions
-	class com_exception : public std::exception
-	{
-	public:
-		com_exception(HRESULT hr) noexcept :
-			result(hr) {}
-
-		const char* what() const override
-		{
-			static char s_str[64] = {};
-			sprintf_s(s_str, "Failure with HRESULT of %08X", static_cast<unsigned int>(result));
-			return s_str;
-		}
-
-	private:
-		HRESULT result;
-	};
-
-	// Helper utility converts D3D API failures into exceptions.
-	inline void ThrowIfFailed(HRESULT hr)
-	{
-		if (FAILED(hr)) {
-			throw com_exception(hr);
-		}
-	}
-}
 
 #include <ClibUtil/distribution.hpp>
 #include <ClibUtil/editorID.hpp>
@@ -132,36 +98,11 @@ namespace DX
 #include <ClibUtil/rng.hpp>
 #include <ClibUtil/simpleINI.hpp>
 
-#include "imgui.h"
-
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
 #include <magic_enum.hpp>
 
-#include <EASTL/algorithm.h>
-#include <EASTL/array.h>
-#include <EASTL/bitset.h>
-#include <EASTL/bonus/fixed_ring_buffer.h>
-#include <EASTL/fixed_list.h>
-#include <EASTL/fixed_slist.h>
-#include <EASTL/fixed_vector.h>
-#include <EASTL/functional.h>
-#include <EASTL/hash_set.h>
-#include <EASTL/map.h>
-#include <EASTL/numeric_limits.h>
-#include <EASTL/set.h>
-#include <EASTL/shared_ptr.h>
-#include <EASTL/string.h>
-#include <EASTL/tuple.h>
-#include <EASTL/unique_ptr.h>
-#include <EASTL/unordered_map.h>
-#include <EASTL/vector.h>
-
 #include "SimpleMath.h"
 
-using float2 = DirectX::SimpleMath::Vector2;
-using float3 = DirectX::SimpleMath::Vector3;
-using float4 = DirectX::SimpleMath::Vector4;
-using float4x4 = DirectX::SimpleMath::Matrix;
 using uint = uint32_t;

@@ -27,37 +27,23 @@ include(XSEPlugin)
 # #######################################################################################################################
 # # Find dependencies
 # #######################################################################################################################
-find_path(BSHOSHANY_THREAD_POOL_INCLUDE_DIRS "BS_thread_pool.hpp")
 find_package(magic_enum CONFIG REQUIRED)
 find_package(xbyak CONFIG REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
-find_package(imgui CONFIG REQUIRED)
-find_package(EASTL CONFIG REQUIRED)
-find_package(directxtk CONFIG REQUIRED)
-find_package(directxtex CONFIG REQUIRED)
 find_path(CLIB_UTIL_INCLUDE_DIRS "ClibUtil/utils.hpp")
-find_package(pystring CONFIG REQUIRED)
-find_package(cppwinrt CONFIG REQUIRED)
 
 target_include_directories(
 	${PROJECT_NAME}
 	PRIVATE
-	${BSHOSHANY_THREAD_POOL_INCLUDE_DIRS}
 	${CLIB_UTIL_INCLUDE_DIRS}
 )
 
 target_link_libraries(
 	${PROJECT_NAME}
 	PRIVATE
-	Microsoft::CppWinRT
 	magic_enum::magic_enum
 	xbyak::xbyak
 	nlohmann_json::nlohmann_json
-	imgui::imgui
-	EASTL
-	Microsoft::DirectXTK
-	Microsoft::DirectXTex
-	pystring::pystring
 )
 
 # https://gitlab.kitware.com/cmake/cmake/-/issues/24922#note_1371990
@@ -83,10 +69,8 @@ endif()
 # #######################################################################################################################
 # # Automatic deployment
 # #######################################################################################################################
-
-# Automatic deployment to CommunityShaders output directory.
 if(AUTO_PLUGIN_DEPLOYMENT)
-	foreach(DEPLOY_TARGET $ENV{CommunityShadersOutputDir})
+	foreach(DEPLOY_TARGET $ENV{SamplePluginOutputDir})
 		message("Copying AIO to ${DEPLOY_TARGET}")
 		add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 			COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> "${DEPLOY_TARGET}/SKSE/Plugins/"
@@ -94,7 +78,7 @@ if(AUTO_PLUGIN_DEPLOYMENT)
 		)
 	endforeach()
 
-	if(NOT DEFINED ENV{CommunityShadersOutputDir})
-		message("When using AUTO_PLUGIN_DEPLOYMENT option, you need to set environment variable 'CommunityShadersOutputDir'")
+	if(NOT DEFINED ENV{SamplePluginOutputDir})
+		message("When using AUTO_PLUGIN_DEPLOYMENT option, you need to set environment variable 'SamplePluginOutputDir'")
 	endif()
 endif()

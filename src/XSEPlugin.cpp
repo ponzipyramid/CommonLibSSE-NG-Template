@@ -39,7 +39,6 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Load(const SKSE::LoadInterface* a_s
 #endif
 	InitializeLog();
 	logger::info("Loaded plugin {} {}", Plugin::NAME, Plugin::VERSION.string());
-	logger::info("Another log");
 	SKSE::Init(a_skse);
 	return Load();
 }
