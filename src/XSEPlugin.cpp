@@ -1,9 +1,5 @@
 #define DLLEXPORT __declspec(dllexport)
 
-std::list<std::string> errors;
-
-bool Load();
-
 void InitializeLog([[maybe_unused]] spdlog::level::level_enum a_level = spdlog::level::info)
 {
 #ifndef NDEBUG
@@ -18,11 +14,7 @@ void InitializeLog([[maybe_unused]] spdlog::level::level_enum a_level = spdlog::
 	auto sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(path->string(), true);
 #endif
 
-#ifndef NDEBUG
-	const auto level = spdlog::level::trace;
-#else
 	const auto level = a_level;
-#endif
 
 	auto log = std::make_shared<spdlog::logger>("global log"s, std::move(sink));
 	log->set_level(level);
@@ -40,7 +32,7 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Load(const SKSE::LoadInterface* a_s
 	InitializeLog();
 	logger::info("Loaded plugin {} {}", Plugin::NAME, Plugin::VERSION.string());
 	SKSE::Init(a_skse);
-	return Load();
+	return true;
 }
 
 extern "C" DLLEXPORT constinit auto SKSEPlugin_Version = []() noexcept {
@@ -57,13 +49,5 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface*, 
 	pluginInfo->name = SKSEPlugin_Version.pluginName;
 	pluginInfo->infoVersion = SKSE::PluginInfo::kVersion;
 	pluginInfo->version = SKSEPlugin_Version.pluginVersion;
-	return true;
-}
-bool Load()
-{
-	
-	auto log = spdlog::default_logger();
-	log->set_level(spdlog::level::level_enum::info);
-
 	return true;
 }
