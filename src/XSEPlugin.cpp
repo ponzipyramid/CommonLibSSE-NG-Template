@@ -1,5 +1,3 @@
-#define DLLEXPORT __declspec(dllexport)
-
 void InitializeLog([[maybe_unused]] spdlog::level::level_enum a_level = spdlog::level::info)
 {
 #ifndef NDEBUG

@@ -17,7 +17,6 @@ void* operator new[](size_t size, size_t alignment, size_t alignmentOffset, cons
 #	define SKSE_SUPPORT_XBYAK
 #	include "RE/Skyrim.h"
 #	include "SKSE/SKSE.h"
-#	include <xbyak/xbyak.h>
 #endif
 
 #ifdef NDEBUG
@@ -92,17 +91,8 @@ namespace util
 
 #include "Plugin.h"
 
-#include <ClibUtil/distribution.hpp>
-#include <ClibUtil/editorID.hpp>
-#include <ClibUtil/numeric.hpp>
-#include <ClibUtil/rng.hpp>
-#include <ClibUtil/simpleINI.hpp>
-
-#include <nlohmann/json.hpp>
-using json = nlohmann::json;
-
-#include <magic_enum.hpp>
-
 #include "SimpleMath.h"
 
 using uint = uint32_t;
+
+#define DLLEXPORT __declspec(dllexport)
